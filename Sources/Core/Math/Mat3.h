@@ -213,5 +213,16 @@ namespace Fregat
 							0, 0, t_z);
 			}
 		};
+
+		bool operator==(const Mat3& t_mat1, const Mat3& t_mat2)
+		{
+			const int matSize = 9;
+			for(size_t i = 0; i < matSize; ++i)
+			{
+				if(t_mat1[i] != t_mat2[i]) return false;
+			}
+
+			return true;
+		}
 	}
 }

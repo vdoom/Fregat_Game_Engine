@@ -373,43 +373,6 @@ namespace Fregat
 		//inline float Length(const Vec4 &v);
 		//inline float Distance(const Vec4 &v1, const Vec4 &v2);
 		//inline Vec4 Normalize(Vec4);
-
-		inline bool operator==(const Vec2& t_vec1, const Vec2& t_vec2)
-		{
-			return (t_vec1.x == t_vec2.x) && (t_vec1.y == t_vec2.y);
-		}
 		
-		inline bool operator==(const Vec3& t_vec1, const Vec3& t_vec2)
-		{
-			return (t_vec1.x == t_vec2.x) && (t_vec1.y == t_vec2.y) && (t_vec1.z == t_vec2.z);
-		}
-
-		inline bool operator==(const Vec4& t_vec1, const Vec4& t_vec2)
-		{
-			return (t_vec1.x == t_vec2.x) && (t_vec1.y == t_vec2.y) 
-				&& (t_vec1.z == t_vec2.z) && (t_vec1.w == t_vec2.w);
-		}
-
-		bool operator==(const Mat3& t_mat1, const Mat3& t_mat2)
-		{
-			const int matSize = 9;
-			for(size_t i = 0; i < matSize; ++i)
-			{
-				if(t_mat1[i] != t_mat2[i]) return false;
-			}
-
-			return true;
-		}
-
-		bool operator==(const Mat4& t_mat1, const Mat4& t_mat2)
-		{
-			const int matSize = 16;
-			for(size_t i = 0; i < matSize; ++i)
-			{
-				if(t_mat1[i] != t_mat2[i]) return false;
-			}
-
-			return true;
-		}
 	}
 }
