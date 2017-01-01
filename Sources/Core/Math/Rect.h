@@ -12,13 +12,29 @@ namespace Fregat
 			Vec2 m_bottomLeft;
 			Vec2 m_topRight;
 		public:
-			Rect(void);
-			Rect(Vec2 t_bottomLeft, Vec2 t_topRight);
-			Rect(float t_minX, float t_minY, float t_maxX, float t_maxY);
+			inline Rect(void)
+			{}
+			inline Rect(Vec2 t_bottomLeft, Vec2 t_topRight)
+			{
+				Set(t_bottomLeft, t_topRight);
+			}
+			inline Rect(float t_minX, float t_minY, float t_maxX, float t_maxY)
+			{
+				Set(t_minX, t_minY, t_maxX, t_maxY);
+			}
 			//TODO: need override copy constructor and operator=
-			~Rect(void);
-			void Set(Vec2 t_bottomLeft, Vec2 t_topRight);
-			void Set(float t_minX, float t_minY, float t_maxX, float t_maxY);
+			inline Rect::~Rect(void)
+			{}
+			inline void Rect::Set(Vec2 t_bottomLeft, Vec2 t_topRight)
+			{
+				m_bottomLeft = t_bottomLeft;
+				m_topRight = t_topRight;
+			}
+			inline void Rect::Set(float t_minX, float t_minY, float t_maxX, float t_maxY)
+			{
+				m_bottomLeft.Set(t_minX, t_minY);
+				m_topRight.Set(t_maxX, t_maxY);
+			}
 			inline Vec2 GetTopRight() const {return m_topRight;}
 			inline Vec2 GetBottomLeft() const {return m_bottomLeft;}
 			inline float GetMinX() const {return m_bottomLeft.GetX();}
@@ -26,33 +42,6 @@ namespace Fregat
 			inline float GetMinY() const {return m_bottomLeft.GetY();}
 			inline float GetMaxY() const {return m_topRight.GetY();}
 		};
-		
-		Rect::Rect(void)
-		{}
-		
-		Rect::Rect(Vec2 t_bottomLeft, Vec2 t_topRight)
-		{
-			Set(t_bottomLeft, t_topRight);
-		}
-		
-		Rect::Rect(float t_minX, float t_minY, float t_maxX, float t_maxY)
-		{
-			Set(t_minX, t_minY, t_maxX, t_maxY);
-		}
-		
-		Rect::~Rect(void)
-		{}
-		
-		void Rect::Set(Vec2 t_bottomLeft, Vec2 t_topRight)
-		{
-			m_bottomLeft = t_bottomLeft;
-			m_topRight = t_topRight;
-		}
-		void Rect::Set(float t_minX, float t_minY, float t_maxX, float t_maxY)
-		{
-			m_bottomLeft.Set(t_minX, t_minY);
-			m_topRight.Set(t_maxX, t_maxY);
-		}
 
 		inline bool operator==(const Rect& t_rect1, const Rect& t_rect2)
 		{

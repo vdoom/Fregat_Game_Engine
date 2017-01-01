@@ -1,3 +1,4 @@
+#pragma once
 #include "Mat4.h"
 #include "Mat3.h"
 #include "Vec4.h"
@@ -7,8 +8,10 @@
 namespace Fregat 
 {
 	namespace Math
-	{
-		static const Vec3 ToEulerMat4(const Mat4& t_mat)
+	{	
+		//-----------------------------------------------------------------------------------
+
+		inline const Vec3 ToEulerMat4(const Mat4& t_mat)
 		{
 			Vec3 angle;
 			float x, y, C;
@@ -54,20 +57,8 @@ namespace Fregat
 		{
 			return Mat4::Translation(t_vec.x, t_vec.y, t_vec.z);
 		}
-
-		static const Mat4 LookAt(const Vec3 &position, const Vec3 &center, const Vec3 &up)
-		{
-			const Vec3 f = Vec3::Normileze(position - center);
-			const Vec3 s = Vec3::Normileze(Cross(up, f));
-			const Vec3 u = Vec3::Normileze(Cross(f, s));
 		
-			return Mat4(s.x, s.y, s.z, 0,
-			            u.x, u.y, u.z, 0,
-			            f.x, f.y, f.z, 0,
-			            -Dot(s, position), -Dot(u, position),  -Dot(f, position), 1);
-		}
-		
-		static const Vec3 ToEulerMat3(const Mat3& t_mat)
+		inline const Vec3 ToEulerMat3(const Mat3& t_mat)
 		{
 			Vec3 angle;
 			float x, y, C;
@@ -114,7 +105,7 @@ namespace Fregat
 			return Mat3::Translation(t_vec.x, t_vec.y, t_vec.z);
 		}
 
-		static Quat Mat3ToQuat(const Mat3& t_mat)
+		inline Quat Mat3ToQuat(const Mat3& t_mat)
 		{
 			Quat tmp;
 			const float t = t_mat[0] + t_mat[4] + t_mat[8];
@@ -153,7 +144,7 @@ namespace Fregat
 			return tmp;
 		}
 		
-		static Quat Mat4ToQuat(const Mat4 &t_mat)
+		inline Quat Mat4ToQuat(const Mat4 &t_mat)
 		{
 			Quat tmp;
 			const float t = t_mat[0] + t_mat[5] + t_mat[10];
@@ -191,9 +182,8 @@ namespace Fregat
 
 			return tmp;
 		}
-
 		
-		static float DeterminantMat4(const Mat4& t_mat)
+		inline float DeterminantMat4(const Mat4& t_mat)
 		{
 			float A, B, C, D, E, F;
 		
@@ -210,7 +200,7 @@ namespace Fregat
 			     - t_mat[3] * (C * t_mat[4] - E * t_mat[5] + F * t_mat[6]);
 		}
 		
-		static const Mat4 InverseMat4(const Mat4& t_mat)
+		inline const Mat4 InverseMat4(const Mat4& t_mat)
 		{
 			const float det = 1.0f / DeterminantMat4(t_mat);
 		
@@ -256,7 +246,7 @@ namespace Fregat
 			     + t_mat[2] * (t_mat[3] * t_mat[7] - t_mat[4] * t_mat[6]);
 		}
 		
-		inline const Mat3 inverseMat3(const Mat3& t_mat)
+		inline const Mat3 InverseMat3(const Mat3& t_mat)
 		{
 			const float det = 1.0f / DeterminantMat3(t_mat);
 		
@@ -271,14 +261,14 @@ namespace Fregat
 			            (t_mat[0] * t_mat[4] - t_mat[1] * t_mat[3]) * det);
 		}
 		
-		inline const Mat3 transposeMat3(const Mat3& t_mat)
+		inline const Mat3 TransposeMat3(const Mat3& t_mat)
 		{
 			return Mat3(t_mat[0], t_mat[3], t_mat[6],
 			            t_mat[1], t_mat[4], t_mat[7],
 			            t_mat[2], t_mat[5], t_mat[8]);
 		}
 
-		static const Mat4 Orthographic(float t_left, float t_right, float t_bottom, 
+		inline const Mat4 Orthographic(float t_left, float t_right, float t_bottom, 
 									   float t_top, float t_zNear, float t_zFar)
 		{
 			const float tx = - (t_right + t_left) / (t_right - t_left),
@@ -291,7 +281,7 @@ namespace Fregat
 			            0, 0, 0, 1);
 		}
 
-		static const Mat4 Perspective(float t_fov, float t_aspect, float t_zNear, float t_zFar)
+		inline const Mat4 Perspective(float t_fov, float t_aspect, float t_zNear, float t_zFar)
 		{
 			const float f = 1 / tanf(t_fov * math_radians / 2),
 				        A = (t_zFar + t_zNear) / (t_zNear - t_zFar),
@@ -303,7 +293,7 @@ namespace Fregat
 						0, 0, -1, 0);
 		}
 
-		static const Mat4 Frustum(float t_left, float t_right, float t_bottom, 
+		inline const Mat4 Frustum(float t_left, float t_right, float t_bottom, 
 									float t_top, float t_zNear, float t_zFar)
 		{
 			return Mat4((2 * t_zNear) / (t_right - t_left), 0, (t_right + t_left) / (t_right - t_left), 0,
@@ -327,7 +317,7 @@ namespace Fregat
 			return Length(t_v1 - t_v2);
 		}
 
-		Vec2& Normalize(const Vec2& t_vec)
+		inline Vec2& Normalize(const Vec2& t_vec)
 		{
 			return Vec2(t_vec / Length(t_vec));
 		}
@@ -354,16 +344,28 @@ namespace Fregat
 			return Length(t_vec1 - t_vec2);
 		}
 
-		Vec3& Normalize(const Vec3 t_vec)
+		inline Vec3& Normalize(const Vec3 t_vec)
 		{
 			return Vec3(t_vec / Length(t_vec));
 		}
 
-		// random point on sphere
-		static const Vec3 SphRand()
+		inline const Mat4 LookAt(const Vec3 &position, const Vec3 &center, const Vec3 &up)
 		{
-			float u = unirand(2.0f * math_pi);
-			float h = unirand(2.0f)  - 1.0f;
+			const Vec3 f = Normalize(position - center);
+			const Vec3 s = Normalize(Cross(up, f));
+			const Vec3 u = Normalize(Cross(f, s));
+		
+			return Mat4(s.x, s.y, s.z, 0,
+			            u.x, u.y, u.z, 0,
+			            f.x, f.y, f.z, 0,
+			            -Dot(s, position), -Dot(u, position),  -Dot(f, position), 1);
+		}
+
+		// random point on sphere
+		inline const Vec3 SphRand()
+		{
+			float u = UniRand(2.0f * math_pi);
+			float h = UniRand(2.0f)  - 1.0f;
 			float r = sqrtf(1.0f - h * h);
 			return Vec3(cosf(u) * r, sinf(u) * r, h);
 		}

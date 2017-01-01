@@ -214,7 +214,7 @@ namespace Fregat
 			}
 		};
 
-		bool operator==(const Mat3& t_mat1, const Mat3& t_mat2)
+		inline bool operator==(const Mat3& t_mat1, const Mat3& t_mat2)
 		{
 			const int matSize = 9;
 			for(size_t i = 0; i < matSize; ++i)
