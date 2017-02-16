@@ -5,6 +5,8 @@ namespace Fregat
 {
 	namespace Math
 	{
+		struct Vec3;
+
 		class Mat4
 		{
 		public:
@@ -252,6 +254,8 @@ namespace Fregat
 							sx * sz - cx * cz * sy, cz * sx + cx * sy * sz, cx * cy, 0,
 							0, 0, 0, 1);
 			}
+
+			inline static const Mat4 FromEuler(const Vec3&);
 		
 			static const Mat4 Scale(float t_x, float t_y, float t_z)
 			{
@@ -260,6 +264,8 @@ namespace Fregat
 							0, 0, t_z, 0,
 							0, 0, 0, 1);
 			}
+
+			inline static const Mat4 Scale(const Vec3&);
 		
 			static const Mat4 Translation(float t_x, float t_y, float t_z)
 			{
@@ -268,6 +274,8 @@ namespace Fregat
 							0, 0, 1, t_z,
 							0, 0, 0, 1);
 			}
+
+			inline static const Mat4 Translation(const Vec3&);
 		};
 
 		inline bool operator==(const Mat4& t_mat1, const Mat4& t_mat2)

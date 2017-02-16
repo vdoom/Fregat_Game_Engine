@@ -43,6 +43,11 @@ namespace Fregat
 			return angle;
 		}
 
+		inline const Vec3 GetPosFromMat4(const Mat4& t_mat)
+		{
+			return Vec3(t_mat.m03, t_mat.m13, t_mat.m23);
+		}
+
 		inline const Mat4 FromEulerMat4(const Vec3& t_vec)
 		{
 			return Mat4::FromEuler(t_vec.x, t_vec.y, t_vec.z);
@@ -302,6 +307,35 @@ namespace Fregat
 						0, 0, -1, 0);
 		}
 
+		const Mat4 Mat4::Translation(const Vec3& t_vec)
+		{
+			return Mat4(1, 0, 0, t_vec.x,
+						0, 1, 0, t_vec.y,
+						0, 0, 1, t_vec.z,
+						0, 0, 0, 1);
+		}
+
+		const Mat4 Mat4::Scale(const Vec3& t_vec)
+		{
+			return Mat4(t_vec.x, 0, 0, 0,
+						0, t_vec.y, 0, 0,
+						0, 0, t_vec.z, 0,
+						0, 0, 0, 1);
+		}
+
+		const Mat4 Mat4::FromEuler(const Vec3& t_vec)
+		{
+			const float cx = cosf(t_vec.x * math_radians), sx = sinf(t_vec.x * math_radians),
+					cy = cosf(t_vec.y * math_radians), sy = sinf(t_vec.y * math_radians),
+					cz = cosf(t_vec.x * math_radians), sz = sinf(t_vec.z * math_radians);
+		
+			// rotationX * rotationY * rotationZ
+			return Mat4(cy * cz, -cy * sz, sy, 0,
+						cx * sz + sx * cz * sy, cx * cz - sx * sy * sz, -cy * sx, 0,
+						sx * sz - cx * cz * sy, cz * sx + cx * sy * sz, cx * cy, 0,
+						0, 0, 0, 1);
+		}
+
 		inline float Dot(const Vec2& t_v1, const Vec2& t_v2)
 		{
 			return t_v1.x * t_v2.x + t_v1.y * t_v2.y;
@@ -349,16 +383,16 @@ namespace Fregat
 			return Vec3(t_vec / Length(t_vec));
 		}
 
-		inline const Mat4 LookAt(const Vec3 &position, const Vec3 &center, const Vec3 &up)
+		inline const Mat4 LookAt(const Vec3 &t_position, const Vec3 &t_center, const Vec3 &t_up)
 		{
-			const Vec3 f = Normalize(position - center);
-			const Vec3 s = Normalize(Cross(up, f));
+			const Vec3 f = Normalize(t_position - t_center);
+			const Vec3 s = Normalize(Cross(t_up, f));
 			const Vec3 u = Normalize(Cross(f, s));
 		
 			return Mat4(s.x, s.y, s.z, 0,
 			            u.x, u.y, u.z, 0,
 			            f.x, f.y, f.z, 0,
-			            -Dot(s, position), -Dot(u, position),  -Dot(f, position), 1);
+			            -Dot(s, t_position), -Dot(u, t_position),  -Dot(f, t_position), 1);
 		}
 
 		// random point on sphere
@@ -370,6 +404,12 @@ namespace Fregat
 			return Vec3(cosf(u) * r, sinf(u) * r, h);
 		}
 
+		inline const Vec3 GetScaleFromMa4(const Mat4& t_mat)
+		{
+			return Vec3(Length(Vec3(t_mat.m00, t_mat.m01, t_mat.m02)),
+						Length(Vec3(t_mat.m10, t_mat.m11, t_mat.m12)),
+						Length(Vec3(t_mat.m20, t_mat.m21, t_mat.m22)));
+		}
 		//TODO: need implement
 		//inline float Dot(const Vec4& v1, const Vec4 &v2);
 		//inline float Length(const Vec4 &v);

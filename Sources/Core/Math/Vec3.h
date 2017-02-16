@@ -93,5 +93,10 @@ namespace Fregat
 			return (t_vec1.x == t_vec2.x) && (t_vec1.y == t_vec2.y) && (t_vec1.z == t_vec2.z);
 		}
 
+		inline bool operator!=(const Vec3& t_vec1, const Vec3& t_vec2)
+		{
+			return (t_vec1.x != t_vec2.x) || (t_vec1.y != t_vec2.y) || (t_vec1.z != t_vec2.z);
+		}
+
 	}
 }
