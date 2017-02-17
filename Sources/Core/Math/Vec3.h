@@ -69,8 +69,8 @@ namespace Fregat
 			{ return v[t_i]; }
 		
 			inline const Vec3 operator+(const Vec3& t_v) const { return Vec3(x + t_v.x, y + t_v.y, z + t_v.z); }
-			inline const Vec3 operator-(const Vec3& t_v) const { return Vec3(x - t_v.x, y - t_v.y, z + t_v.z); }
-			inline const Vec3 operator*(const Vec3& t_v) const { return Vec3(x * t_v.x, y * t_v.y, z + t_v.z); }
+			inline const Vec3 operator-(const Vec3& t_v) const { return Vec3(x - t_v.x, y - t_v.y, z - t_v.z); }
+			inline const Vec3 operator*(const Vec3& t_v) const { return Vec3(x * t_v.x, y * t_v.y, z * t_v.z); }
 			inline const Vec3 operator*(float t_f)       const { return Vec3(x * t_f, y * t_f, z * t_f);   }
 			inline const Vec3 operator/(float t_f)       const { return Vec3(x / t_f, y / t_f, z / t_f);   }
 		
