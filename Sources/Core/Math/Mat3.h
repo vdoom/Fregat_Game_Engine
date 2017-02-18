@@ -22,7 +22,12 @@ namespace Fregat
 				//vect mt[3];
 			};
 		
-			Mat3() {}
+			Mat3() 
+			{
+				set(1, 0, 0,
+				    0, 1, 0,
+					0, 0, 1);
+			}
 		
 			void set(const float* t_f)
 			{
