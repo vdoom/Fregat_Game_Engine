@@ -62,10 +62,10 @@ namespace Fregat
 				z = t_z;
 			}
 		
-			inline float operator[](int t_i)       
+			inline float operator[](size_t t_i)       
 			{ return v[t_i]; }
 			
-			inline float operator[](int t_i)const 
+			inline float operator[](size_t t_i)const 
 			{ return v[t_i]; }
 		
 			inline const Vec3 operator+(const Vec3& t_v) const { return Vec3(x + t_v.x, y + t_v.y, z + t_v.z); }
@@ -85,6 +85,8 @@ namespace Fregat
 			static inline Vec3 Down(){return Vec3(0, -1, 0);}
 			static inline Vec3 Forward(){return Vec3(0, 0, -1);}
 			static inline Vec3 Back(){return Vec3(0, 0, 1);}
+			static inline Vec3 Zero(){return Vec3(0, 0, 0);}
+			static inline Vec3 One(){return Vec3(1, 1, 1);}
 		
 		};
 		

@@ -285,3 +285,39 @@ TEST(Mat4Test, MatOperationsTest)
 	//Perspective
 	//Frustum
 }
+
+TEST(Mat4Test, TransfomUntransform)
+{
+	Mat4 tmp;
+	Vec3 gtPos(1,2,3);
+	Vec3 gtScale(4,5,6);
+	tmp *= Mat4::Translation(gtPos);
+	Vec3 pos = GetPosFromMat4(tmp);
+	EXPECT_EQ(pos, gtPos);
+	tmp *= Mat4::Scale(gtScale);
+	Vec3 scale = GetScaleFromMa4(tmp);
+	pos = GetPosFromMat4(tmp);
+	EXPECT_EQ(pos, gtPos);
+	EXPECT_EQ(scale, gtScale);
+	//Vec3 gtRot(30, 45, 90);
+	//Mat4 tmp2;
+	//tmp = Mat4::FromEuler(gtRot)*tmp;
+	//tmp = Mat4::RotationX(gtRot.x) * tmp;
+	//tmp *= Mat4::RotationY(gtRot.y);//Mat4::RotationY(gtRot.y) * tmp;
+	//tmp = Mat4::RotationZ(gtRot.z) * tmp;
+	
+	//Vec3 rot = ToEulerMat4(TransposeMat4(tmp));
+	//std::cout<<"GT x:"<<gtRot.x<<"; y:"<<gtRot.y<<"; z:"<<gtRot.z<<std::endl;
+	//std::cout<<"res x:"<<rot.x<<"; y:"<<rot.y<<"; z:"<<rot.z<<std::endl;
+	//EXPECT_EQ(gtRot, rot);
+}
+
+//TEST(Mat4Test, LookAtTest)
+//{
+//	Mat4 tmp;
+//	Vec3 gtPos(0, -5, -20);
+//	Vec3 gtCenter = Vec3::Zero();
+//	tmp = LookAt(gtPos, gtCenter, Vec3::Up());
+//	Vec3 pos = GetPosFromMat4(tmp);
+//	EXPECT_EQ(gtPos, pos);
+//}

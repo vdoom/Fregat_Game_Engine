@@ -90,8 +90,8 @@ namespace Fregat
 			//Mat4& operator=(const mat3 &M) { set(M); return *this; }
 			//Mat4& operator=(const quat &q) { set(q); return *this; }
 		
-			float operator[](int t_i)       { return m[t_i]; }
-			float operator[](int t_i) const { return m[t_i]; }
+			float operator[](size_t t_i)       { return m[t_i]; }
+			float operator[](size_t t_i) const { return m[t_i]; }
 		
 			const Mat4 operator+(const Mat4& t_mat) const
 			{
