@@ -4,7 +4,8 @@
 using namespace Fregat;
 
 Entity::Entity(void):
-	m_transform(*this)
+	m_transform(*this),
+	m_enabled(true)
 {
 }
 

@@ -32,12 +32,12 @@ namespace Fregat
 				float res[4];
 			} pResultSSE1, pResultSSE2, pResultSSE3, pResultSSE4;
 		
-			Mat4() {set(1, 0, 0, 0,
+			Mat4() {Set(1, 0, 0, 0,
 				        0, 1, 0, 0,
 				        0, 0, 1, 0,
 						0, 0, 0, 1);}
 		
-			void set(const float *t_f)
+			void Set(const float *t_f)
 			{
 				m[ 0] = t_f[ 0]; m[ 1] = t_f[ 1]; m[ 2] = t_f[ 2]; m[ 3] = t_f[ 3];
 				m[ 4] = t_f[ 4]; m[ 5] = t_f[ 5]; m[ 6] = t_f[ 6]; m[ 7] = t_f[ 7];
@@ -45,7 +45,7 @@ namespace Fregat
 				m[12] = t_f[12]; m[13] = t_f[13]; m[14] = t_f[14]; m[15] = t_f[15];
 			}
 			
-			void set(float  t_m0, float  t_m1, float  t_m2, float  t_m3,
+			void Set(float  t_m0, float  t_m1, float  t_m2, float  t_m3,
 			         float  t_m4, float  t_m5, float  t_m6, float  t_m7,
 			         float  t_m8, float  t_m9, float t_m10, float t_m11,
 			         float t_m12, float t_m13, float t_m14, float t_m15)
@@ -56,7 +56,7 @@ namespace Fregat
 				m[12] = t_m12; m[13] = t_m13; m[14] = t_m14; m[15] = t_m15;
 			}
 			
-			void set(const Mat4& t_mat)
+			void Set(const Mat4& t_mat)
 			{
 				m[ 0] = t_mat[ 0]; m[ 1] = t_mat[ 1]; m[ 2] = t_mat[ 2]; m[ 3] = t_mat[ 3];
 				m[ 4] = t_mat[ 4]; m[ 5] = t_mat[ 5]; m[ 6] = t_mat[ 6]; m[ 7] = t_mat[ 7];
@@ -64,31 +64,21 @@ namespace Fregat
 				m[12] = t_mat[12]; m[13] = t_mat[13]; m[14] = t_mat[14]; m[15] = t_mat[15];
 			}
 		
-			//void set(const Mat2 &M);
-			//void set(const Mat3 &M);
-			//void set(const quat &q);
-		
-			explicit Mat4(const float* t_f) { set(t_f); }
-			Mat4(const Mat4& t_mat)  { set(t_mat); }
-			//mat4(const mat2 &M)  { set(M); }
-			//mat4(const mat3 &M)  { set(M); }
-			//mat4(const quat &q)  { set(q); }
-		
+			explicit Mat4(const float* t_f) { Set(t_f); }
+			Mat4(const Mat4& t_mat)  { Set(t_mat); }
+
 			Mat4(float  t_m0, float  t_m1, float  t_m2, float  t_m3,
 			     float  t_m4, float  t_m5, float  t_m6, float  t_m7,
 			     float  t_m8, float  t_m9, float t_m10, float t_m11,
 			     float t_m12, float t_m13, float t_m14, float t_m15)
 			{
-				set( t_m0,  t_m1,  t_m2,  t_m3,
+				Set( t_m0,  t_m1,  t_m2,  t_m3,
 				     t_m4,  t_m5,  t_m6,  t_m7,
 				     t_m8,  t_m9, t_m10, t_m11,
 				    t_m12, t_m13, t_m14, t_m15);
 			}
 		
-			Mat4& operator=(const Mat4& t_mat) { set(t_mat); return *this; }
-			//Mat4& operator=(const mat2 &M) { set(M); return *this; }
-			//Mat4& operator=(const mat3 &M) { set(M); return *this; }
-			//Mat4& operator=(const quat &q) { set(q); return *this; }
+			Mat4& operator=(const Mat4& t_mat) { Set(t_mat); return *this; }
 		
 			float operator[](size_t t_i)       { return m[t_i]; }
 			float operator[](size_t t_i) const { return m[t_i]; }
@@ -175,7 +165,7 @@ namespace Fregat
 			}
 			Mat4& operator*=(const Mat4& t_mat)
 			{
-				set(m[ 0] * t_mat[ 0] + m[ 1] * t_mat[ 4] + m[ 2] * t_mat[ 8] + m[ 3] * t_mat[12],
+				Set(m[ 0] * t_mat[ 0] + m[ 1] * t_mat[ 4] + m[ 2] * t_mat[ 8] + m[ 3] * t_mat[12],
 				    m[ 0] * t_mat[ 1] + m[ 1] * t_mat[ 5] + m[ 2] * t_mat[ 9] + m[ 3] * t_mat[13],
 				    m[ 0] * t_mat[ 2] + m[ 1] * t_mat[ 6] + m[ 2] * t_mat[10] + m[ 3] * t_mat[14],
 				    m[ 0] * t_mat[ 3] + m[ 1] * t_mat[ 7] + m[ 2] * t_mat[11] + m[ 3] * t_mat[15],

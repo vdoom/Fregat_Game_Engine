@@ -4,6 +4,7 @@
 #include "Vec4.h"
 #include "Vec3.h"
 #include "Vec2.h"
+#include <iostream>
 
 namespace Fregat 
 {
@@ -35,11 +36,11 @@ namespace Fregat
 				y       =  t_mat[ 4];
 				angle.z = atan2f(y, x) * math_degrees;
 			}
-
+		
 			if (angle.x < 0) angle.x += 360;
 			if (angle.y < 0) angle.y += 360;
 			if (angle.z < 0) angle.z += 360;
-
+		
 			return angle;
 		}
 
@@ -383,7 +384,19 @@ namespace Fregat
 			return Vec3(t_vec / Length(t_vec));
 		}
 
-		inline const Mat4 LookAt(const Vec3 &t_position, const Vec3 &t_center, const Vec3 &t_up)
+		/*inline const Mat4 LookAt(const Vec3 &t_position, const Vec3 &t_center, const Vec3 &t_up)
+		{
+			const Vec3 f = Normalize(t_position - t_center);
+			const Vec3 s = Normalize(Cross(t_up, f));
+			const Vec3 u = Normalize(Cross(f, s));
+		
+			return Mat4(s.x, s.y, s.z, 0,
+			            u.x, u.y, u.z, 0,
+			            f.x, f.y, f.z, 0,
+			            -Dot(s, t_position), -Dot(u, t_position),  -Dot(f, t_position), 1);
+		}*/
+
+		inline const Mat4 LookAt(const Vec3& t_position, const Vec3& t_center, const Vec3& t_up)
 		{
 			const Vec3 f = Normalize(t_position - t_center);
 			const Vec3 s = Normalize(Cross(t_up, f));
@@ -415,6 +428,22 @@ namespace Fregat
 		//inline float Length(const Vec4 &v);
 		//inline float Distance(const Vec4 &v1, const Vec4 &v2);
 		//inline Vec4 Normalize(Vec4);
-		
+		//--------------------------------------------------------------
+
+		inline void ShowMat(const Mat4& t_mat)
+		{
+			std::cout << "-----------------------------\n";
+			std::cout << t_mat.m00 << " " << t_mat.m01 << " " << t_mat.m02 << " " << t_mat.m03 << std::endl;
+			std::cout << t_mat.m10 << " " << t_mat.m11 << " " << t_mat.m12 << " " << t_mat.m13 << std::endl;
+			std::cout << t_mat.m20 << " " << t_mat.m21 << " " << t_mat.m22 << " " << t_mat.m23 << std::endl;
+			std::cout << t_mat.m30 << " " << t_mat.m31 << " " << t_mat.m32 << " " << t_mat.m33 << std::endl;
+		}
+
+		inline Vec3 operator* (const Mat4& t_mat, const Vec3& t_vec)
+		{
+			return Vec3(t_mat.m00 * t_vec.x + t_mat.m01 * t_vec.y + t_mat.m02 * t_vec.z + t_mat.m03,
+						t_mat.m10 * t_vec.x + t_mat.m11 * t_vec.y + t_mat.m12 * t_vec.z + t_mat.m13,
+						t_mat.m20 * t_vec.x + t_mat.m21 * t_vec.y + t_mat.m22 * t_vec.z + t_mat.m23);
+		}
 	}
 }

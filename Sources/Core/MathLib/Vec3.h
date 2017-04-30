@@ -46,6 +46,13 @@ namespace Fregat
 				y = t_y;
 				z = t_z;
 			}
+
+			inline void Set(const Vec3& t_vec)
+			{//TODO: need think about caching vector length
+				x = t_vec.x;
+				y = t_vec.y;
+				z = t_vec.z;
+			}
 		
 			inline void SetX(float t_x)
 			{
@@ -67,6 +74,8 @@ namespace Fregat
 			
 			inline float operator[](size_t t_i)const 
 			{ return v[t_i]; }
+
+			inline Vec3& operator=(const Vec3& t_vec) { Set(t_vec); return *this; }
 		
 			inline const Vec3 operator+(const Vec3& t_v) const { return Vec3(x + t_v.x, y + t_v.y, z + t_v.z); }
 			inline const Vec3 operator-(const Vec3& t_v) const { return Vec3(x - t_v.x, y - t_v.y, z - t_v.z); }
@@ -85,8 +94,6 @@ namespace Fregat
 			static inline Vec3 Down(){return Vec3(0, -1, 0);}
 			static inline Vec3 Forward(){return Vec3(0, 0, -1);}
 			static inline Vec3 Back(){return Vec3(0, 0, 1);}
-			static inline Vec3 Zero(){return Vec3(0, 0, 0);}
-			static inline Vec3 One(){return Vec3(1, 1, 1);}
 		
 		};
 		

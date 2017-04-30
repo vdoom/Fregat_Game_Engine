@@ -9,7 +9,8 @@
 #include <map>
 #include <memory>
 #include <string>
-#include "../../../Math/Mat4.h"
+#include "../../../MathLib/Mat4.h"
+#include "../../../MathLib/Vec3.h"
 #include "../../AssetsManagement/AssetBase.h"
 
 namespace Fregat
@@ -57,12 +58,13 @@ namespace Fregat
 			void BindAttribLocation(GLuint, const char*);
 			void BindUniform1Int(GLint, const char*);
 			void BindUniform4Mat(const Math::Mat4&, const char*);
+			void BindUniform3Vec(const Math::Vec3&, const char*);
 			//TODO: need add method for optimized Uniform Update
 			void ActivateShader();
 			void DisactivateShader();
 			//TODO: Need methods gor detaching and remmoving shaders
 
-			static Shader CreateShader(const std::string&, const std::string&) _NOEXCEPT;
+			static std::unique_ptr<Shader> CreateShader(const std::string&, const std::string&) noexcept;
 
 			inline bool IsCompiled() const 
 			{return m_isCompiled;}

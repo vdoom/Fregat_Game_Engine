@@ -6,8 +6,8 @@
 #pragma once
 
 #include "MeshBase.h"
-#include "../../../Math/Rect.h"
-#include "../../../Math/Mat4.h"
+#include "../../../MathLib/Rect.h"
+#include "../../../MathLib/Mat4.h"
 
 namespace Fregat
 {
@@ -30,6 +30,10 @@ namespace Fregat
 			void InitPlane(Math::Rect);
 			inline const Math::Rect GetRect() const
 			{return m_rect;}
+			virtual bool CreateAsset(System::AssetBin* t_assetBinData) override
+			{
+				return true;
+			}
 			static MeshPlane CratePlane(Math::Rect);
 		};
 	}

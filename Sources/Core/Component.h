@@ -13,11 +13,11 @@ namespace Fregat
 	class Component
 	{
 	protected:
-		Entity& m_parent;
+		Entity& m_entity;
 		//UUID& m_uuid;
 		bool m_enabled;
 	public:
-		Component(Entity&);
+		explicit Component(Entity&);
 		virtual ~Component(void);
 		virtual void Update(float t_tick){}
 
@@ -25,7 +25,7 @@ namespace Fregat
 		{return m_enabled;}
 		inline void SetEnabled(bool t_enabled)
 		{m_enabled = true;} //TODO: set event of enabling
-		inline Entity* GetParent() {return &m_parent;}
+		inline Entity* GetEntity() {return &m_entity;}
 
 		bool IsCanBeUpdated();
 	};

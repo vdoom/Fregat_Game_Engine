@@ -7,8 +7,9 @@
 
 #include <vector>
 #include <string>
-#include "../../../Math/Vec2.h"
-#include "../../../Math/Vec3.h"
+#include <memory>
+#include "../../../MathLib/Vec2.h"
+#include "../../../MathLib/Vec3.h"
 
 namespace Fregat
 {
@@ -24,7 +25,7 @@ namespace Fregat
 				Vec3 position;
 				Vec3 normal;
 				Vec2 texcoord;
-				unsigned index;
+				size_t index;
 				Vertex():
 					 position()
 					,normal()
@@ -33,16 +34,16 @@ namespace Fregat
 				{}
 			};
 			
-			struct mesh
+			struct MeshData
 			{
 				string meshName;
 				vector<Vec3> vertices;
 				//vector<Point3> indeces;
-				vector<unsigned> indeces;
+				vector<size_t> indeces;
 				vector<Vec2> texCoord;
 				vector<Vec3> normals;
-				vector<Vertex> RealVerteces;
-				vector<unsigned> altIndex; // !!! USE THIS !!!
+				vector<std::shared_ptr<Vertex>> RealVerteces;
+				vector<size_t> altIndex; // !!! USE THIS !!!
 				Vec3 AA;
 				Vec3 BB;
 				Vec3 centr;

@@ -31,23 +31,6 @@ namespace Fregat
 		const float math_radians = math_pi / 180.0f;
 		const float math_degrees = 180.0f / math_pi;
 		
-		// Bring min and max from std namespace to global scope.
-		//template <class T> inline T mcmin( const T &a, const T &b )               {  return b < a ? b : a; }
-		//template <class T> inline T mcmax( const T &a, const T &b )               {  return a < b ? b : a; }
-		//template <class T, class _Compare> ILINE const T& min( const T &a, const T &b, _Compare comp) { return comp(b,a) ? b : a; }
-		//template <class T, class _Compare> ILINE const T& max( const T &a, const T &b, _Compare comp) {   return comp(a,b) ? b : a; }
-		//ILINE int                                         min_branchless(int a, int b)                { int diff = a - b; int mask = diff >> 31; return (b & (~mask)) | (a & mask); }
-		
-		//template<class T> inline T mcclamp( T X, T Min, T Max ) {  return X < Min ? Min : X < Max ? X : Max; }
-		//template<class T> inline void mclimit(T &val, const T &min, const T &max)
-		//{
-		//	if (val < min)
-		//		val = min;
-		//	else if (val > max)
-		//		val = max;
-		//}
-		//template<class T> inline T mclerp(const T &a, const T &b, float t) { return T(a + (b - a) * t); }
-		
 		//#if defined _M_IX86_FP && _M_IX86_FP == 2
 		inline float mcsqrt(float op)	{ __m128 s = _mm_sqrt_ss(_mm_set_ss(op));  float r; _mm_store_ss(&r, s);   return r; }
 		inline float mcisqrt(float op) { __m128 s = _mm_rsqrt_ss(_mm_set_ss(op));  float r; _mm_store_ss(&r, s);   return r * (1.5f - op * r * r * 0.5f); }
@@ -58,7 +41,7 @@ namespace Fregat
 		}
 		inline float mcisqrt2(float op) 
 		{
-			return 1.0 / sqrt(op); 
+			return 1.0f / sqrt(op); 
 		}
 		//#endif
 		

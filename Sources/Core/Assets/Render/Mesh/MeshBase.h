@@ -6,7 +6,8 @@
 #pragma once
 #include <GL/glew.h>// TODO: need to remove frome here
 #include <vector>
-#include "../../AssetsManagement/AssetBase.h"
+#include "../../AssetsManagement/AssetSys.h"
+//#include "../../AssetsManagement/AssetBase.h"
 
 namespace Fregat
 {
@@ -18,25 +19,27 @@ namespace Fregat
 			FRGGLMESH_USE_VAO
 		};
 
-		class MeshBase //: public System::AssetBase
+		class MeshBase : public System::AssetSys//: public System::AssetBase
 		{
 		protected:
 			FRGGL_MESH_MODE m_mode;
-			GLuint vao, vbo[3];
+			GLuint vao, vbo[4];
 			GLuint m_indicesCount;
-			std::vector<GLuint> m_indices; //TODO: perhaps should use std::vector
+			std::vector<GLuint> m_indices; 
 			bool m_isInitBuff;
 		public:
-			MeshBase()
+			MeshBase() : AssetSys(nullptr)
 			{
 				m_mode = FRGGLMESH_USE_VAO;
 				m_isInitBuff = false;
 			}
-			virtual ~MeshBase()
+			virtual ~MeshBase() override
 			{
-				//glDeleteBuffers(2, vbo);
-				//glDeleteVertexArrays(1, &vao);
+				glDeleteBuffers(2, vbo);
+				glDeleteVertexArrays(1, &vao);
 			}
+
+
 			//virtual void Init() = 0;
 			inline GLuint GetMeshPointer() const
 			{
@@ -44,6 +47,7 @@ namespace Fregat
 					return vao;
 				else if(m_mode == FRGGLMESH_ONLY_VBO)
 					return vbo[0];
+				return -1;
 			}
 
 			inline const GLuint* GetIndices() const

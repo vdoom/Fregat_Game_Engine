@@ -6,18 +6,19 @@
 #pragma once
 
 #include <GL/glew.h>// TODO: need to remove frome here
-#include "../../AssetsManagement/AssetBase.h"
+#include "../../AssetsManagement/AssetSys.h"
 
 namespace Fregat
 {
 	namespace Render
 	{
-		class TextureBase : public System::AssetBase
+		class TextureBase : public System::AssetSys
 		{
 		protected:
 			GLuint m_textureID;
 		public:
-			TextureBase(){}
+			TextureBase():AssetSys(nullptr)
+			{}
 			~TextureBase() override {}
 			inline GLuint GetTexturePointer() const
 			{

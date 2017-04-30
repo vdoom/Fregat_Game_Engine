@@ -5,9 +5,10 @@
 //---------------------------------------------
 #pragma once
 //#include "MathLib/MatOperations.h"
-#include "../../Math/MatOperations.h"
-#include "../../Math/Vec3.h"
+#include "../../MathLib/MatOperations.h"
+#include "../../MathLib/Vec3.h"
 #include "../../Component.h"
+
 
 namespace Fregat
 {
@@ -26,7 +27,7 @@ namespace Fregat
 		public:
 			void UpdateCachedMat();
 			//Math::Mat4 m_transform;
-			Camera(Entity&);
+			explicit Camera(Entity&);
 			~Camera(void);
 		
 			//void SetUp(const Math::Mat4&);
@@ -35,8 +36,15 @@ namespace Fregat
 			void SetUpPerspective(float t_fov, float t_aspect, float t_zNear, float t_zFar);
 			void LookAt(const Math::Vec3 &position, const Math::Vec3 &center, const Math::Vec3 &up);
 
-			inline Math::Mat4& GetProjMatrix() {return m_cachedProjMat;}
-			inline const Math::Mat4& GetProjMatrix() const {return m_cachedProjMat;}
+			inline Math::Mat4& GetProjMatrix() {
+				return m_projection;
+				//return m_cachedProjMat;
+			}//m_cachedProjMat;}
+			inline const Math::Mat4& GetProjMatrix() const {
+				return m_projection;
+				//return m_cachedProjMat;
+			}//m_cachedProjMat;}
+			const Math::Vec3 GetPos() const;
 		};
 	}
 }

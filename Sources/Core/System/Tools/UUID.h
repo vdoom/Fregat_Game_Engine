@@ -27,7 +27,7 @@ namespace Fregat
 				std::string chars_lower;
 				//static constexpr const char *chars_upper = "0123456789ABCDEF";
 			public:
-				UUID(const UUID::Bytes &bytes) :
+				explicit UUID(const UUID::Bytes &bytes) :
 					bytes_(bytes),
 					chars_lower("0123456789abcdef")
 				{

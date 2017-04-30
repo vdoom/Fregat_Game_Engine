@@ -28,7 +28,7 @@ namespace Fregat
 			SimpleMaterial* m_material;
 			MeshBase* m_mesh;
 		public:
-			RenderComponent(Entity& t_tt);// : Component(t_tt){}
+			explicit RenderComponent(Entity& t_tt);// : Component(t_tt){}
 			virtual ~RenderComponent();//{}
 			void InitRenderer(MeshBase* t_mesh, SimpleMaterial* t_material);//{}//, Mat4* t_transform){}
 			virtual void Update(float t_tick);//{}

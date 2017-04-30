@@ -24,19 +24,19 @@ namespace Fregat
 		
 			Mat3() 
 			{
-				set(1, 0, 0,
+				Set(1, 0, 0,
 				    0, 1, 0,
 					0, 0, 1);
 			}
 		
-			void set(const float* t_f)
+			void Set(const float* t_f)
 			{
 				m[0] = t_f[0]; m[1] = t_f[1]; m[2] = t_f[2];
 				m[3] = t_f[3]; m[4] = t_f[4]; m[5] = t_f[5];
 				m[6] = t_f[6]; m[7] = t_f[7]; m[8] = t_f[8];
 			}
 
-			void set(float t_m0, float t_m1, float t_m2,
+			void Set(float t_m0, float t_m1, float t_m2,
 			         float t_m3, float t_m4, float t_m5,
 			         float t_m6, float t_m7, float t_m8)
 			{
@@ -45,7 +45,7 @@ namespace Fregat
 				m[6] = t_m6; m[7] = t_m7; m[8] = t_m8;
 			}
 
-			void set(const Mat3& t_mat)
+			void Set(const Mat3& t_mat)
 			{
 				m[0] = t_mat[0]; m[1] = t_mat[1]; m[2] = t_mat[2];
 				m[3] = t_mat[3]; m[4] = t_mat[4]; m[5] = t_mat[5];
@@ -53,8 +53,8 @@ namespace Fregat
 			}
 			
 			//CONSTRUCTORS MUST BE OPTIMISED
-			explicit Mat3(const float* t_f) { set(t_f); }
-			Mat3(const Mat3& t_mat)  { set(t_mat); }
+			explicit Mat3(const float* t_f) { Set(t_f); }
+			Mat3(const Mat3& t_mat)  { Set(t_mat); }
 			//Mat3(const mat2 &M)  { set(M); }
 			//Mat3(const mat4 &M)  { set(M); }
 			//Mat3(const quat &q)  { set(q); }
@@ -63,15 +63,12 @@ namespace Fregat
 			     float t_m3, float t_m4, float t_m5,
 			     float t_m6, float t_m7, float t_m8)
 			{
-				set(t_m0, t_m1, t_m2,
+				Set(t_m0, t_m1, t_m2,
 				    t_m3, t_m4, t_m5,
 				    t_m6, t_m7, t_m8);
 			}
 		
-			Mat3& operator=(const Mat3& t_mat) { set(t_mat); return *this; }
-			//Mat3& operator=(const mat2 &M) { set(M); return *this; }
-			//Mat3& operator=(const mat4 &M) { set(M); return *this; }
-			//Mat3& operator=(const quat &q) { set(q); return *this; }
+			Mat3& operator=(const Mat3& t_mat) { Set(t_mat); return *this; }
 		
 			float operator[](size_t t_i)       { return m[t_i]; }
 			float operator[](size_t t_i) const { return m[t_i]; }
@@ -137,7 +134,7 @@ namespace Fregat
 
 			Mat3& operator*=(const Mat3& t_mat)
 			{
-				set(m[0] * t_mat[0] + m[1] * t_mat[3] + m[2] * t_mat[6],
+				Set(m[0] * t_mat[0] + m[1] * t_mat[3] + m[2] * t_mat[6],
 				    m[0] * t_mat[1] + m[1] * t_mat[4] + m[2] * t_mat[7],
 				    m[0] * t_mat[2] + m[1] * t_mat[5] + m[2] * t_mat[8],
 				    m[3] * t_mat[0] + m[4] * t_mat[3] + m[5] * t_mat[6],

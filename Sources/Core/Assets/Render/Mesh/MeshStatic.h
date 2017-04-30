@@ -7,6 +7,7 @@
 
 #include "MeshBase.h"
 #include <vector>
+//#include "Geometry3D.h"
 //#include "../../../MathLib/Rect.h"
 //#include "../../../MathLib/Mat4.h"
 //TODO: need implement and refine
@@ -16,7 +17,7 @@ namespace Fregat
 	{
 		namespace IO
 		{
-			class mesh;
+			struct MeshData;
 		}
 	}
 
@@ -25,7 +26,6 @@ namespace Fregat
 		class MeshStatic : public MeshBase
 		{
 		private:
-			//TODO: Need to change to standart types
 			//--------------------------------------
 			/*std::vector<GLfloat[3]> m_verts;
 			std::vector<GLfloat[2]> m_texCord;
@@ -38,10 +38,11 @@ namespace Fregat
 		public:
 			MeshStatic();
 			virtual ~MeshStatic();
-			void InitPlane(System::IO::mesh&);
+			void InitPlane(System::IO::MeshData*);
 			//inline const Math::Rect GetRect() const
 			//{return m_rect;}
-			static MeshStatic CratePlane(std::string);
+			virtual bool CreateAsset(System::AssetBin* t_assetBinData) override;
+			//static MeshStatic CratePlane(std::string);
 		};
 	}
 }

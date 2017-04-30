@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "Math/MatOperations.h"
+#include "MathLib\MatOperations.h"
 
 using namespace Fregat::Math;
 
@@ -17,7 +17,7 @@ namespace Fregat
 	    Mat4 m_globalTransform; //Cached value //TODO: steel need refine!!!
 	    Entity& m_entity; 
 	public:
-		Transform(Entity&);
+		explicit Transform(Entity&);
 		~Transform(void);
 	
 		void UpdateGlobalTransformMatrix();
@@ -36,6 +36,7 @@ namespace Fregat
 	
 	    Mat4 GetLocalTransformMatrix() const;
 	    Mat4 GetGlobalTransformMatrix();// const;
+		Mat4 GetGlobalTransformMatrixAlt();
 	
 	    void SetLocalMatrix(const Mat4 & t_matrix);
 	    //void SetLocalMatrix(const QMatrix4x4 & t_matrix);

@@ -1,14 +1,17 @@
 #include "RendererComponent.h"
 #include "../Mesh/MeshBase.h"
 #include "../Material/SimpleMaterial.h"
-#include "../../../Math/Mat4.h"
+#include "../../../MathLib/Mat4.h"
 
 namespace Fregat
 {
 	namespace Render
 	{
 
-		RenderComponent::RenderComponent(Entity& t_tt) : Component(t_tt)
+		RenderComponent::RenderComponent(Entity& t_tt) : 
+			Component(t_tt),
+			m_material(nullptr),
+			m_mesh(nullptr)
 		{}
 
 		RenderComponent::~RenderComponent()

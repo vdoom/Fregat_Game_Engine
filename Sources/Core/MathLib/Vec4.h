@@ -14,77 +14,87 @@ namespace Fregat
 		struct Vec4
 		{
 			union
-	{
-		struct { float x, y, z, w; };
-		float v[4];
-	};
-		public:
+			{
+				struct { float x, y, z, w; };
+				float v[4];
+			};
+			public:
 			inline Vec4():
-		x(0.0f),
-		y(0.0f),
-		z(0.0f),
-		w(0.0f)
-	{
-	}
-			
+					x(0.0f),
+					y(0.0f),
+					z(0.0f),
+					w(0.0f)
+			{
+			}
+				
 			inline Vec4(float t_x, float t_y, float t_z, float t_w):
-		x(t_x),
-		y(t_y),
-		z(t_z),
-		w(t_w)
-	{
-	}
-		
+					x(t_x),
+					y(t_y),
+					z(t_z),
+					w(t_w)
+			{
+			}
+			
 			inline Vec4(const Vec4& t_vec):
-		x(t_vec.x),
-		y(t_vec.y),
-		z(t_vec.z),
-		w(t_vec.w)
-	{
-	}
+					x(t_vec.x),
+					y(t_vec.y),
+					z(t_vec.z),
+					w(t_vec.w)
+			{
+			}
 		
 			inline float GetX()const {return x;}
 			inline float GetY()const {return y;}
 			inline float GetZ()const {return z;}
 			inline float GetW()const {return w;}
-		
+			
 			inline void Set(float t_x, float t_y, float t_z, float t_w)
-	{//TODO: need think about caching vector length
-		x = t_x; 
-		y = t_y;
-		z = t_z;
-		w = t_w;
-	}
-		
+			{//TODO: need think about caching vector length
+				x = t_x; 
+				y = t_y;
+				z = t_z;
+				w = t_w;
+			}
+
+			inline void Set(const Vec4& t_vec)
+			{//TODO: need think about caching vector length
+				x = t_vec.x;
+				y = t_vec.y;
+				z = t_vec.z;
+				w = t_vec.w;
+			}
+			
 			//void Set(const Mat3 &M);
-		
+			
 			//void Set(const Mat4 &M);
-		
+			
 			inline void SetX(float t_x)
-	{
-		x = t_x;
-	}
-		
+			{
+				x = t_x;
+			}
+			
 			inline void SetY(float t_y)
-	{
-		y = t_y;
-	}
-		
+			{
+				y = t_y;
+			}
+			
 			inline void SetZ(float t_z)
-	{
-		z = t_z;
-	}
-		
+			{
+				z = t_z;
+			}
+			
 			inline void SetW(float t_w)
-	{
-		w = t_w;
-	}
+			{
+				w = t_w;
+			}
 		
-			inline float operator[](int t_i)       
+			inline float operator[](size_t t_i)       
 			{ return v[t_i]; }
 			
-			inline float operator[](int t_i)const 
+			inline float operator[](size_t t_i)const 
 			{ return v[t_i]; }
+
+			inline Vec4& operator=(const Vec4& t_vec) { Set(t_vec); return *this; }
 		
 			//todo: Perhaps can be speeduped via SSE
 			inline const Vec4 operator+(const Vec4& t_v) const { return Vec4(x + t_v.x, y + t_v.y, z + t_v.z, w + t_v.w); }

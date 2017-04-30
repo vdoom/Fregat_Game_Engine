@@ -41,6 +41,12 @@ namespace Fregat
 				x = t_x; 
 				y = t_y;
 			}
+
+			inline void Set(const Vec2& t_vec)
+			{//TODO: need think about caching vector length
+				x = t_vec.x;
+				y = t_vec.y;
+			}
 		
 			inline void SetX(float t_x)
 			{
@@ -52,11 +58,13 @@ namespace Fregat
 				y = t_y;
 			}
 		
-			inline float operator[](int t_i)       
+			inline float operator[](size_t t_i)       
 			{ return v[t_i]; }
 			
-			inline float operator[](int t_i)const 
+			inline float operator[](size_t t_i)const 
 			{ return v[t_i]; }
+
+			inline Vec2& operator=(const Vec2& t_vec) { Set(t_vec); return *this; }
 		
 			inline const Vec2 operator+(const Vec2& t_v) const { return Vec2(x + t_v.x, y + t_v.y); }
 			inline const Vec2 operator-(const Vec2& t_v) const { return Vec2(x - t_v.x, y - t_v.y); }

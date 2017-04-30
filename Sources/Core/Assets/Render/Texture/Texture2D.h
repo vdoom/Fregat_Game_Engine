@@ -18,8 +18,11 @@ namespace Fregat
 			Texture2D();
 			~Texture2D() override;
 			//TEmporary solution!!! It will be moved to asset manager loaders
-			void InitTexture(std::string); //TODO: perhaps need create fabrica and move this code there.
-			static Texture2D CreateTexture(std::string);
+			//void InitTexture(std::string); //TODO: perhaps need create fabrica and move this code there.
+			
+			virtual bool CreateAsset(System::AssetBin* t_assetBinData) override;
+
+			//static Texture2D CreateTexture(std::string);//TEST METHODS, REMOVE IN FUTURE
 		private:
 		};
 	}

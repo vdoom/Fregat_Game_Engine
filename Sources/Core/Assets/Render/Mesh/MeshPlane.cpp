@@ -78,9 +78,9 @@ namespace Fregat
 			glEnableVertexAttribArray(1);
 
 //--		------------------------------------------------------
-			// начинаем работу с индексным буфером
+			// Binde buffer for indeces
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[2]);
-			// поместим в буфер индексы вершин куба
+			// Place indeces into index buffer
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indicesCount * sizeof(unsigned int),
 				m_indices.data(), GL_STATIC_DRAW);
 

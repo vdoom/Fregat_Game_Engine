@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <assert.h>
+#include <memory>
 
 namespace Fregat
 {
@@ -96,9 +97,6 @@ namespace Fregat
 		{
 			m_objectIndex = glCreateShader(ConverShaderType(t_shaderType));
 			m_type = t_shaderType;
-			/* Send the vertex shader source code to GL */
-			/* Note that the source code is NULL character terminated. */
-			/* GL will automatically detect that therefore the length info can be 0 in this case (the last parameter) */
 			const char* str = t_sourceCode.c_str();
 			glShaderSource(m_objectIndex, 1, (const GLchar**)&str, 0);
 		}
@@ -119,11 +117,8 @@ namespace Fregat
 				char *infoLog;
 				int maxLength;
 				glGetShaderiv(m_objectIndex, GL_INFO_LOG_LENGTH, &maxLength);
-				/* The maxLength includes the NULL character */
 				infoLog = (char *)malloc(maxLength);
 				glGetShaderInfoLog(m_objectIndex, maxLength, &maxLength, infoLog);
-				/* Handle the error in an appropriate way such as displaying a message or writing to a log file. */
-				/* In this simple program, we'll just leave */
 				m_shaderCompileErrore = std::string(infoLog);
 				std::cout<<infoLog<<std::endl;
 				free(infoLog);
@@ -147,28 +142,13 @@ namespace Fregat
 			glAttachShader(m_objectIndex, vertexShader->second->GetGLObject());
 			glAttachShader(m_objectIndex, fragmentShader->second->GetGLObject());
 
-			/* Bind attribute index 0 (coordinates) to in_Position and attribute index 1 (color) to in_Color */
-			/* Attribute locations must be setup before calling glLinkProgram. */
-			//glBindAttribLocation(m_objectIndex, 0, "in_Position");
-			//glBindAttribLocation(m_objectIndex, 1, "in_Color");
 			for(auto attrib : m_attribLocks)
 			{
 				std::cout<<attrib.first<<" "<<attrib.second.c_str()<<std::endl;
 				glBindAttribLocation(m_objectIndex, attrib.first, attrib.second.c_str());
 			}
 
-			//auto colorTextureLocation = glGetUniformLocation(m_objectIndex, "colorTexture");
-			//if ((colorTextureLocation) != -1)
-			//	glUniform1i(colorTextureLocation, 0);
-
-			/* Link our program */
-			/* At this stage, the vertex and fragment programs are inspected, optimized and a binary code is generated for the shader. */
-			/* The binary code is uploaded to the GPU, if there is no error. */
 			glLinkProgram(m_objectIndex);
-			//auto colorTextureLocation = glGetUniformLocation(m_objectIndex, "colorTexture");
-			/* Again, we must check and make sure that it linked. If it fails, it would mean either there is a mismatch between the vertex */
-			/* and fragment shaders. It might be that you have surpassed your GPU's abilities. Perhaps too many ALU operations or */
-			/* too many texel fetch instructions or too many interpolators or dynamic loops. */
 
 			glGetProgramiv(m_objectIndex, GL_LINK_STATUS, (int *)&m_isCompiled);
 			if(m_isCompiled == 0)
@@ -214,8 +194,14 @@ namespace Fregat
 
 		void Shader::BindUniform4Mat(const Math::Mat4& t_mat, const char* t_name)
 		{
-			auto matrixLocation = glGetUniformLocation(m_objectIndex, t_name);
+			auto matrixLocation = glGetUniformLocation(m_objectIndex, t_name);//TODO: perhaps need to thik about caching this data
 			glUniformMatrix4fv(matrixLocation, 1, GL_TRUE, t_mat.m);
+		}
+
+		void Shader::BindUniform3Vec(const Math::Vec3& t_vec, const char* t_name)
+		{
+			auto vectorLocation = glGetUniformLocation(m_objectIndex, t_name);
+			glUniform3fv(vectorLocation, 1, t_vec.v);
 		}
 		
 		void Shader::ActivateShader()
@@ -237,14 +223,16 @@ namespace Fregat
 				return GL_FRAGMENT_SHADER;
 			case ShaderType::GLST_VERTEX_SHADER:
 				return GL_VERTEX_SHADER;
+			default:
+				return -1;
 			}
 		}
 
-		Shader Shader::CreateShader(const std::string& t_vertexShaderPath, const std::string& t_fragmentShaderPath)
+		std::unique_ptr<Shader> Shader::CreateShader(const std::string& t_vertexShaderPath, const std::string& t_fragmentShaderPath) noexcept
 		{
 			GLchar *vertexsource, *fragmentsource;
-			vertexsource = filetobuf(t_vertexShaderPath.c_str());//("lesson.vert");
-			fragmentsource = filetobuf(t_fragmentShaderPath.c_str());//("lesson.frag");
+			vertexsource = filetobuf(t_vertexShaderPath.c_str());
+			fragmentsource = filetobuf(t_fragmentShaderPath.c_str());
 			//tmpClass ttt;
 			std::unique_ptr<Shader> vertShader(new Shader());
 			vertShader->SetShaderText(vertexsource, ShaderType::GLST_VERTEX_SHADER);
@@ -254,15 +242,16 @@ namespace Fregat
 			fragShader->SetShaderText(fragmentsource, ShaderType::GLST_FRAGMENT_SHADER);
 			fragShader->Compile();
 
-			Shader shaderProgram;
-			shaderProgram.m_type = ShaderType::GLST_PROGRAM_SHADER;
-			shaderProgram.AddShader(vertShader, ShaderType::GLST_VERTEX_SHADER);
-			shaderProgram.AddShader(fragShader, ShaderType::GLST_FRAGMENT_SHADER);
+			std::unique_ptr<Shader> shaderProgram(new Shader);
+			shaderProgram->m_type = ShaderType::GLST_PROGRAM_SHADER;
+			shaderProgram->AddShader(vertShader, ShaderType::GLST_VERTEX_SHADER);
+			shaderProgram->AddShader(fragShader, ShaderType::GLST_FRAGMENT_SHADER);
 			
-			shaderProgram.BindAttribLocation(0,"in_Position");
-			shaderProgram.BindAttribLocation(1,"in_Texcoord");//"in_Color");
+			shaderProgram->BindAttribLocation(0, "in_Position");
+			shaderProgram->BindAttribLocation(1, "in_Texcoord");//"in_Color");
+			shaderProgram->BindAttribLocation(2, "in_Normals");
 			
-			shaderProgram.Link();
+			shaderProgram->Link();
 			free(vertexsource);
 			free(fragmentsource);
 			//shaderProgram.ActivateShader();

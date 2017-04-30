@@ -1,4 +1,4 @@
-//#include "ctFastDelegat.h"
+#include "ctFastDelegat.h"
 
 //ctFastDelegat::ctFastDelegat()
 //    : object_ptr(0)

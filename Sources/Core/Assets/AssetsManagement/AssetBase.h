@@ -23,7 +23,7 @@ namespace Fregat
 			std::string m_pathOnDisc;
 			std::string m_typeName;
 		public:
-			AssetBase(){}
+			AssetBase() : m_isLoaded(false) {}
 			virtual ~AssetBase(){}
 
 			inline const bool IsLoaded() const
