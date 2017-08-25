@@ -1,13 +1,19 @@
 #version 330 core
 
+// текстура
 uniform sampler2D colorTexture;
 
+//uniform vec3 lightPos; 
 uniform vec3 viewPos;
+//uniform vec3 lightColor;
+//uniform vec3 objectColor;
 
+// входящие параметры, которые получены из вершинного шейдера
 in vec2 fragTexcoord;
 in vec3 normals;
 in vec3 fragPos;
 
+// результирующий цвет пикселя на экране
 out vec4 color;
 
 void main(void)
@@ -35,4 +41,8 @@ void main(void)
     vec3 result = (ambient + diffuse + specular) * vec3(objectColor);
     color = vec4(result, objectColor.w);
 	
+	// получим цвет пикселя из текстуры по текстурным координатам
+	//color = texture(colorTexture, fragTexcoord);
+	//vec3 norm = normalize(normals);
+	//color = vec4(norm, 1);
 }
