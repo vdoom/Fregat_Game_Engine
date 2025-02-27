@@ -64,7 +64,7 @@ namespace Fregat
 			void DisactivateShader();
 			//TODO: Need methods gor detaching and remmoving shaders
 
-			static std::unique_ptr<Shader> CreateShader(const std::string&, const std::string&) _NOEXCEPT;//noexcept;
+			static std::unique_ptr<Shader> CreateShader(const std::string&, const std::string&) noexcept;
 
 			inline bool IsCompiled() const 
 			{return 1 && m_isCompiled;}

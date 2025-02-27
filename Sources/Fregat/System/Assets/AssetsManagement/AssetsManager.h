@@ -8,7 +8,7 @@
 #include <map>
 #include <memory>
 #include <vector>
-
+#include <string>
 #include <Fregat/System/Core/IService.h>
 
 namespace Fregat

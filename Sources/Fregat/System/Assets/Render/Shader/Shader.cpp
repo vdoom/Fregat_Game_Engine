@@ -228,7 +228,7 @@ namespace Fregat
 			}
 		}
 
-		std::unique_ptr<Shader> Shader::CreateShader(const std::string& t_vertexShaderPath, const std::string& t_fragmentShaderPath) _NOEXCEPT//noexcept
+		std::unique_ptr<Shader> Shader::CreateShader(const std::string& t_vertexShaderPath, const std::string& t_fragmentShaderPath) noexcept
 		{
 			GLchar *vertexsource, *fragmentsource;
 			vertexsource = filetobuf(t_vertexShaderPath.c_str());
