@@ -133,9 +133,9 @@ namespace Fregat
 		{
 			IService::Init();
 
-			std::unique_ptr<Fregat::Render::Shader> shaderTest = std::move(Fregat::Render::Shader::CreateShader("simple_without_light.vert", "simple_without_light.frag"));
+			std::unique_ptr<Fregat::Render::Shader> shaderTest = std::move(Fregat::Render::Shader::CreateShader("Shaders/simple_without_light.vert", "Shaders/simple_without_light.frag"));
 			m_shaders["default"] = std::move(shaderTest);
-			auto shaderTestLight = std::move(Fregat::Render::Shader::CreateShader("simple_with_light.vert", "simple_with_light.frag"));
+			auto shaderTestLight = std::move(Fregat::Render::Shader::CreateShader("Shaders/simple_with_light.vert", "Shaders/simple_with_light.frag"));
 			m_shaders["withLight"] = std::move(shaderTestLight);
 			//init internal states
 			//Load base shaders

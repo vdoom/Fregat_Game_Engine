@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.6)
+cmake_minimum_required (VERSION 3.22)
 
 get_filename_component(GLM_INCLUDE_ABSOLUTE 
 						./3rd_party/glm-0.9.8.4/include 
