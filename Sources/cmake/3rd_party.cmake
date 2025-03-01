@@ -1,26 +1,28 @@
-get_filename_component(GLM_INCLUDE_ABSOLUTE
-                       ".\3rd_party\glm-0.9.8.4\include"
-                       ABSOLUTE)
+cmake_minimum_required (VERSION 3.6)
+
+get_filename_component(GLM_INCLUDE_ABSOLUTE 
+						./3rd_party/glm-0.9.8.4/include 
+						ABSOLUTE)
 get_filename_component(GLEW_INCLUDE_ABSOLUTE
-                       ".\3rd_party\glew-2.0.0\include"
+                       ./3rd_party/glew-2.0.0/include
                        ABSOLUTE)
 get_filename_component(GLEW_LIBRARIES_ABSOLUTE
-                       ".\3rd_party\glew-2.0.0\lib\Release\x64\glew32.lib"
+                       ./3rd_party/glew-2.0.0/lib/Release/x64/glew32.lib
                        ABSOLUTE)
 get_filename_component(SDL2_INCLUDE_ABSOLUTE
-                       ".\3rd_party\SDL2-2.0.4\include"
+                       ./3rd_party/SDL2-2.0.4/include
                        ABSOLUTE)
 get_filename_component(SDL2_LIBRARY_ABSOLUTE
-                       ".\3rd_party\SDL2-2.0.4\lib\x64\SDL2.lib"
+                       ./3rd_party/SDL2-2.0.4/lib/x64/SDL2.lib
                        ABSOLUTE)
 get_filename_component(SDL2main_LIBRARY_ABSOLUTE
-                       ".\3rd_party\SDL2-2.0.4\lib\x64\SDL2main.lib"
+                       ./3rd_party/SDL2-2.0.4/lib/x64/SDL2main.lib
                        ABSOLUTE)
 get_filename_component(SDL2_IMG_INCLUDE_ABSOLUTE
-                       ".\3rd_party\SDL2_image-2.0.1\include"
+                       ./3rd_party/SDL2_image-2.0.1/include
                        ABSOLUTE)
 get_filename_component(SDL2_IMG_LIBRARY_ABSOLUTE
-                       ".\3rd_party\SDL2_image-2.0.1\lib\x64\SDL2_image.lib"
+                       ./3rd_party/SDL2_image-2.0.1/lib/x64/SDL2_image.lib
                        ABSOLUTE)					   
 					  
 set(GLM_INC_DIR ${GLM_INCLUDE_ABSOLUTE})
